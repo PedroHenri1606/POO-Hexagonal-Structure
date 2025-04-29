@@ -12,7 +12,7 @@ use Illuminate\Http\JsonResponse;
 
 class UserApiController{
 
-    private function __construct(
+    public function __construct(
         private UserService $service,
         private ApiResponse $apiResponse
     ){}
@@ -67,7 +67,6 @@ class UserApiController{
 
             return $this->apiResponse->error($e->getMessage(), 422);
         }
-
     }
 
     public function destroy(int $id): JsonResponse{
@@ -82,6 +81,5 @@ class UserApiController{
 
             return $this->apiResponse->error($e->getMessage(), 404);
         }
-
     }
 }

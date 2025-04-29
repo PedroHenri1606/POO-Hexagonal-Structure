@@ -9,7 +9,7 @@ use Validator;
 
 class UserService{
 
-    private function __construct(
+    public function __construct(
         private UserRepository $repository,
         private Validator $validator
     ){}

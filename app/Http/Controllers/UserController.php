@@ -9,7 +9,7 @@ use Request;
 
 class UserController extends Controller{
 
-    private function __construct(
+    public function __construct(
         private UserService $service
     ){}
 

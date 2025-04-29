@@ -6,11 +6,10 @@ use App\Interfaces\UserInterface;
 use App\Models\User;
 use App\Utils\QueryBuilder;
 use DB;
-use Illuminate\Database\Eloquent\Collection;
 
 class UserRepository implements UserInterface{
 
-    private function __construct(private QueryBuilder $queryBuilder){}
+    public function __construct(private QueryBuilder $queryBuilder){}
 
     public function findById(int $id): User{
 
