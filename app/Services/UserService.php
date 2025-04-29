@@ -2,36 +2,23 @@
 
 namespace App\Services;
 
+use App\DTOS\UserDto;
 use App\Exceptions\EntityNotFound;
 use App\Models\User;
 use App\Repositories\UserRepository;
-use Validator;
+use App\Utils\Validator;
 
-class UserService{
+abstract class UserService{
 
     public function __construct(
         private UserRepository $repository,
-        private Validator $validator
+        private Validator $validator,
     ){}
 
-    public function findById(int $id): User{
 
-        $user = $this->repository->findById($id);
+    abstract public function findById(int $id): UserDto | User;
 
-        if(!$user){
-            throw new EntityNotFound("User",404);
-        }
-
-        return $user;
-    }
-
-    /**
-     * @return User[]
-     */
-    public function findAll(): array {
-
-        return $this->repository->findAll();
-    }
+    abstract public function findAll(): array;
 
     public function create(array $data): bool {
 

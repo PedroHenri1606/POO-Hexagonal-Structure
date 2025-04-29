@@ -4,7 +4,7 @@ namespace App\Http\ApiControllers;
 
 use App\Exceptions\EntityNotFound;
 use App\Exceptions\ValidationException;
-use App\Services\UserService;
+use App\Services\API\UserServiceApi;
 use App\Utils\ApiResponse;
 use Exception;
 use Illuminate\Http\Request;
@@ -13,7 +13,7 @@ use Illuminate\Http\JsonResponse;
 class UserApiController{
 
     public function __construct(
-        private UserService $service,
+        private UserServiceApi $service,
         private ApiResponse $apiResponse
     ){}
 
