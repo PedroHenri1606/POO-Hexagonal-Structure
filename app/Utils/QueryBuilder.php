@@ -3,7 +3,6 @@
 namespace App\Utils;
 
 use App\Interfaces\QueryBuilderInterface;
-use DB;
 
 class QueryBuilder implements QueryBuilderInterface{
 
