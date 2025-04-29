@@ -5,7 +5,6 @@ namespace App\Services\Web;
 use App\DTOS\User\UserDtoRequestCreate;
 use App\DTOS\User\UserDtoRequestUpdate;
 use App\DTOS\User\UserDtoResponseWeb;
-use App\Exceptions\EntityNotFound;
 use App\Interfaces\UserRepositoryInterface;
 use App\Interfaces\UserServiceWebInterface;
 use App\Services\UserService;
@@ -22,10 +21,6 @@ class UserServiceWeb extends UserService implements UserServiceWebInterface{
 
         $user = $this->repository->findById($id);
 
-        if(!$user){
-            throw new EntityNotFound("User",404);
-        }
-
         return UserDtoResponseWeb::fromArray((array) $user);
     }
 
@@ -41,20 +36,16 @@ class UserServiceWeb extends UserService implements UserServiceWebInterface{
         }, $users);
     }
 
-    public function create(array $data): bool {
-
-        $userDto = UserDtoRequestCreate::fromArray($data);
+    public function create(UserDtoRequestCreate $userDto): bool {
 
         $this->validator->validate((array) $userDto,$userDto->rules());
 
         return $this->repository->create((array) $userDto);
     }
 
-    public function update(int $id, array $data): bool{
+    public function update(int $id, UserDtoRequestUpdate $userDto): bool{
 
         $this->findById($id);
-
-        $userDto = UserDtoRequestUpdate::fromArray($data);
 
         $this->validator->validate( (array) $userDto, $userDto->rules());
 

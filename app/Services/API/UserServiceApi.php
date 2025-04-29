@@ -5,7 +5,6 @@ namespace App\Services\API;
 use App\DTOS\User\UserDtoRequestCreate;
 use App\DTOS\User\UserDtoRequestUpdate;
 use App\DTOS\User\UserDtoResponseApi;
-use App\Exceptions\EntityNotFound;
 use App\Interfaces\UserRepositoryInterface;
 use App\Interfaces\UserServiceApiInterface;
 use App\Services\UserService;
@@ -22,11 +21,7 @@ class UserServiceApi extends UserService implements UserServiceApiInterface {
 
         $user = $this->repository->findById($id);
 
-        if(!$user){
-            throw new EntityNotFound("User",404);
-        }
-
-        return UserDtoResponseApi::fromArray((array) $user);
+        return UserDtoResponseApi::fromArray($user->toArray());
     }
 
     /**
@@ -41,20 +36,16 @@ class UserServiceApi extends UserService implements UserServiceApiInterface {
         }, $users);
     }
 
-    public function create(array $data): bool {
-
-        $userDto = UserDtoRequestCreate::fromArray($data);
+    public function create(UserDtoRequestCreate $userDto): bool {
 
         $this->validator->validate((array) $userDto,$userDto->rules());
 
         return $this->repository->create((array) $userDto);
     }
 
-    public function update(int $id, array $data): bool{
+    public function update(int $id, UserDtoRequestUpdate $userDto): bool{
 
         $this->findById($id);
-
-        $userDto = UserDtoRequestUpdate::fromArray($data);
 
         $this->validator->validate( (array) $userDto, $userDto->rules());
 

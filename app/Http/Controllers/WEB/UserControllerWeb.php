@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\WEB;
 
+use App\DTOS\User\UserDtoRequestCreate;
+use App\DTOS\User\UserDtoRequestUpdate;
 use App\Http\Controllers\Controller;
 use App\Interfaces\UserServiceWebInterface;
 use Illuminate\Contracts\View\View;
@@ -35,7 +37,9 @@ class UserControllerWeb extends Controller{
 
     public function store(Request $request): RedirectResponse {
 
-        $this->service->create($request->all());
+        $userDto = UserDtoRequestCreate::fromArray($request->all());
+
+        $this->service->create($userDto);
 
         return redirect()->route('users.index')->with('success', 'User created successfully');
     }
@@ -49,7 +53,9 @@ class UserControllerWeb extends Controller{
 
     public function update(int $id,Request $request): RedirectResponse {
 
-        $this->service->update($id, $request->all());
+        $userDto = UserDtoRequestUpdate::fromArray($request->all());
+
+        $this->service->update($id, $userDto);
 
         return redirect()->route('users.index')->with('success', 'User updated successfully');
     }

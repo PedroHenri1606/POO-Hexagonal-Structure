@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\API;
 
+use App\DTOS\User\UserDtoRequestCreate;
+use App\DTOS\User\UserDtoRequestUpdate;
 use App\Exceptions\EntityNotFound;
 use App\Exceptions\ValidationException;
 use App\Interfaces\UserServiceApiInterface;
@@ -45,7 +47,9 @@ class UserControllerApi{
 
         try {
 
-            $this->service->create($request->all());
+            $userDto = UserDtoRequestCreate::fromArray($request->all());
+
+            $this->service->create($userDto);
 
             return $this->apiResponse->success(null, 'User created successfully', 201);
 
@@ -59,7 +63,9 @@ class UserControllerApi{
 
         try{
 
-            $this->service->update($id, $request->all());
+            $userDto = UserDtoRequestUpdate::fromArray($request->all());
+
+            $this->service->update($id, $userDto);
 
             return $this->apiResponse->success(null, 'User updated successfully', 200);
 

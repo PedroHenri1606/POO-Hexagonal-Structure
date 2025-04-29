@@ -2,11 +2,14 @@
 
 namespace App\Interfaces;
 
+use App\DTOS\User\UserDtoRequestCreate;
+use App\DTOS\User\UserDtoRequestUpdate;
+
 interface UserServiceApiInterface{
 
     public function findAll(): array;
     public function findById(int $id): mixed;
-    public function create(array $data): bool;
-    public function update(int $id, array $data): bool;
+    public function create(UserDtoRequestCreate $data): bool;
+    public function update(int $id, UserDtoRequestUpdate $data): bool;
     public function delete(int $id): bool;
 }

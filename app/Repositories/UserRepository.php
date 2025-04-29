@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Exceptions\EntityNotFound;
 use App\Interfaces\UserRepositoryInterface;
 use App\Models\User;
 use App\Utils\QueryBuilder;
@@ -15,14 +16,26 @@ class UserRepository implements UserRepositoryInterface{
 
         [$sql, $values] = $this->queryBuilder->select('users',['*'], 'id = ?', [$id]);
 
-        return new User(DB::select($sql, $values)[0]);
+        $result = DB::select($sql, $values);
+
+        if(empty($result)){
+            throw new EntityNotFound('User', 404);
+        }
+
+        return new User((array) $result[0]);
     }
 
     public function findAll(): array{
 
         [$sql, $values] = $this->queryBuilder->select('users',['*']);
 
-        return DB::select($sql, $values);
+        $result = DB::select($sql, $values);
+
+        if(empty($result)){
+            throw new EntityNotFound('User', 404);
+        }
+
+        return $result;
     }
 
     public function create(array $data): bool{
