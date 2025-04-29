@@ -3,18 +3,16 @@
 namespace App\Services;
 
 use App\DTOS\UserDto;
-use App\Exceptions\EntityNotFound;
+use App\Interfaces\UserRepositoryInterface;
 use App\Models\User;
-use App\Repositories\UserRepository;
 use App\Utils\Validator;
 
 abstract class UserService{
 
     public function __construct(
-        private UserRepository $repository,
+        private UserRepositoryInterface $repository,
         private Validator $validator,
     ){}
-
 
     abstract public function findById(int $id): UserDto | User;
 

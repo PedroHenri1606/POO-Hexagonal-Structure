@@ -3,9 +3,8 @@
 namespace App\Interfaces;
 
 use App\Models\User;
-use Illuminate\Database\Eloquent\Collection;
 
-interface UserInterface{
+interface UserRepositoryInterface{
 
     public function findById(int $id): User;
 

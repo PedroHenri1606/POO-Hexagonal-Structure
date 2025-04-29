@@ -4,10 +4,11 @@ namespace App\Services\API;
 
 use App\DTOS\UserDto;
 use App\Exceptions\EntityNotFound;
+use App\Interfaces\UserServiceApiInterface;
 use App\Repositories\UserRepository;
 use App\Services\UserService;
 
-class UserServiceApi extends UserService {
+class UserServiceApi extends UserService implements UserServiceApiInterface {
 
     public function __construct(
         private UserRepository $repository,

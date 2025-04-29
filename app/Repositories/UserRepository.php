@@ -2,12 +2,12 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\UserInterface;
+use App\Interfaces\UserRepositoryInterface;
 use App\Models\User;
 use App\Utils\QueryBuilder;
 use DB;
 
-class UserRepository implements UserInterface{
+class UserRepository implements UserRepositoryInterface{
 
     public function __construct(private QueryBuilder $queryBuilder){}
 

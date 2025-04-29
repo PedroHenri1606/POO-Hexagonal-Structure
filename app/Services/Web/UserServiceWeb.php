@@ -3,11 +3,12 @@
 namespace App\Services\Web;
 
 use App\Exceptions\EntityNotFound;
+use App\Interfaces\UserServiceWebInterface;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Services\UserService;
 
-class UserServiceWeb extends UserService{
+class UserServiceWeb extends UserService implements UserServiceWebInterface{
 
     public function __construct(
         private UserRepository $repository,

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\Web\UserServiceWeb;
+use App\Interfaces\UserServiceWebInterface;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Request;
@@ -10,7 +10,7 @@ use Request;
 class UserController extends Controller{
 
     public function __construct(
-        private UserServiceWeb $service
+        private UserServiceWebInterface $service
     ){}
 
     public function index(): View {
