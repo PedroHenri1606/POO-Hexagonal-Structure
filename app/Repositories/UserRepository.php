@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Exceptions\EntityNotFound;
+use App\Interfaces\QueryBuilderInterface;
 use App\Interfaces\UserRepositoryInterface;
 use App\Models\User;
 use App\Utils\QueryBuilder;
@@ -10,7 +11,7 @@ use DB;
 
 class UserRepository implements UserRepositoryInterface{
 
-    public function __construct(private QueryBuilder $queryBuilder){}
+    public function __construct(private QueryBuilderInterface $queryBuilder){}
 
     public function findById(int $id): User{
 
