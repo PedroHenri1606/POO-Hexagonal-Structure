@@ -2,19 +2,23 @@
 
 namespace App\Services\Web;
 
+use App\DTOS\User\UserDtoRequestCreate;
+use App\DTOS\User\UserDtoRequestUpdate;
+use App\DTOS\User\UserDtoResponseWeb;
 use App\Exceptions\EntityNotFound;
+use App\Interfaces\UserRepositoryInterface;
 use App\Interfaces\UserServiceWebInterface;
-use App\Models\User;
-use App\Repositories\UserRepository;
 use App\Services\UserService;
+use App\Utils\Validator;
 
 class UserServiceWeb extends UserService implements UserServiceWebInterface{
 
     public function __construct(
-        private UserRepository $repository,
+        private UserRepositoryInterface $repository,
+        private Validator $validator,
     ){}
 
-    public function findById(int $id): User{
+    public function findById(int $id): UserDtoResponseWeb{
 
         $user = $this->repository->findById($id);
 
@@ -22,14 +26,38 @@ class UserServiceWeb extends UserService implements UserServiceWebInterface{
             throw new EntityNotFound("User",404);
         }
 
-        return $user;
+        return UserDtoResponseWeb::fromArray((array) $user);
     }
 
     /**
-     * @return User[]
+     * @return UserDtoResponseWeb[]
      */
     public function findAll(): array {
 
-        return $this->repository->findAll();
+        $users = $this->repository->findAll();
+
+        return array_map(function($user){
+            return UserDtoResponseWeb::fromArray((array) $user);
+        }, $users);
+    }
+
+    public function create(array $data): bool {
+
+        $userDto = UserDtoRequestCreate::fromArray($data);
+
+        $this->validator->validate((array) $userDto,$userDto->rules());
+
+        return $this->repository->create((array) $userDto);
+    }
+
+    public function update(int $id, array $data): bool{
+
+        $this->findById($id);
+
+        $userDto = UserDtoRequestUpdate::fromArray($data);
+
+        $this->validator->validate( (array) $userDto, $userDto->rules());
+
+        return $this->repository->update((array) $userDto, $id);
     }
 }

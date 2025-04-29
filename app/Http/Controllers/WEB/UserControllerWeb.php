@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\WEB;
 
+use App\Http\Controllers\Controller;
 use App\Interfaces\UserServiceWebInterface;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Request;
 
-class UserController extends Controller{
+class UserControllerWeb extends Controller{
 
     public function __construct(
         private UserServiceWebInterface $service

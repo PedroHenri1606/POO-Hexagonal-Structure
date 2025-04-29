@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\ApiControllers\UserApiController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\API\UserControllerApi;
+use App\Http\Controllers\WEB\UserControllerWeb;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -14,13 +14,13 @@ Route::group(['prefix' => '/api'], function(){
 
         Route::group(['prefix' => 'users'], function(){
 
-            Route::get('/{id}'     , [UserApiController::class, 'findById']);
-            Route::get(''          , [UserApiController::class, 'findAll']);
+            Route::get('/{id}'     , [UserControllerApi::class, 'findById']);
+            Route::get(''          , [UserControllerApi::class, 'findAll']);
 
-            Route::post(''         , [UserApiController::class, 'create']);
-            Route::put('/{id}'     , [UserApiController::class, 'update']);
+            Route::post(''         , [UserControllerApi::class, 'create']);
+            Route::put('/{id}'     , [UserControllerApi::class, 'update']);
 
-            Route::delete('/{id}'  , [UserApiController::class, 'destroy']);
+            Route::delete('/{id}'  , [UserControllerApi::class, 'destroy']);
         });
     });
 });
@@ -28,7 +28,7 @@ Route::group(['prefix' => '/api'], function(){
 
 Route::group(['prefix' => '/app'], function(){
 
-        Route::resource('users', UserController::class)->names([
+        Route::resource('users', UserControllerWeb::class)->names([
             'index'   => 'users.index',
             'create'  => 'users.create',
             'store'   => 'users.store',

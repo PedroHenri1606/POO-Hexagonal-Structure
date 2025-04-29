@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\ApiControllers;
+namespace App\Http\Controllers\API;
 
 use App\Exceptions\EntityNotFound;
 use App\Exceptions\ValidationException;
@@ -10,7 +10,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
-class UserApiController{
+class UserControllerApi{
 
     public function __construct(
         private UserServiceApiInterface $service,
