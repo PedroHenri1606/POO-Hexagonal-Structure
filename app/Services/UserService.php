@@ -30,13 +30,7 @@ class UserService{
      */
     public function findAll(): array {
 
-        $users = $this->repository->findAll();
-
-        if(!$users){
-            throw new EntityNotFound("Users", 404);
-        }
-
-        return $users;
+        return $this->repository->findAll();
     }
 
     public function create(array $data): bool {
