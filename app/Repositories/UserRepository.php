@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Interfaces\UserInterface;
+use App\Models\User;
 use App\Utils\QueryBuilder;
 use DB;
 use Illuminate\Database\Eloquent\Collection;
@@ -11,18 +12,18 @@ class UserRepository implements UserInterface{
 
     private function __construct(private QueryBuilder $queryBuilder){}
 
-    public function findById(int $id): Collection{
+    public function findById(int $id): User{
 
         [$sql, $values] = $this->queryBuilder->select('users',['*'], 'id = ?', [$id]);
 
-        return collect(DB::select($sql, $values));
+        return new User(DB::select($sql, $values)[0]);
     }
 
-    public function findAll(): Collection{
+    public function findAll(): array{
 
         [$sql, $values] = $this->queryBuilder->select('users',['*']);
 
-        return collect(DB::select($sql, $values));
+        return DB::select($sql, $values);
     }
 
     public function create(array $data): bool{
