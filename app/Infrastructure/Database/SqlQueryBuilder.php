@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Utils;
+namespace App\Infrastructure\Database;
 
 use App\Interfaces\QueryBuilderInterface;
 
-class QueryBuilder implements QueryBuilderInterface{
+
+class SqlQueryBuilder implements QueryBuilderInterface{
 
     public function select(string $table, array $columns, string $whereClause = '', $whereBindings = []): array{
 

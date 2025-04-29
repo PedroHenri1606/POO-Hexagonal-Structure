@@ -2,18 +2,18 @@
 
 namespace App\Providers;
 
+use App\Infrastructure\Database\SqlQueryBuilder;
 use App\Interfaces\QueryBuilderInterface;
-use App\Utils\QueryBuilder;
 use Illuminate\Support\ServiceProvider;
 
-class UtilsProvider extends ServiceProvider
+class InfrastructureProvider extends ServiceProvider
 {
     /**
      * Register services.
      */
     public function register(): void
     {
-        $this->app->bind(QueryBuilderInterface::class, QueryBuilder::class);
+        $this->app->bind(QueryBuilderInterface::class, SqlQueryBuilder::class);
     }
 
     /**
