@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use App\Interfaces\UserRepositoryInterface;
-use App\Interfaces\UserServiceApiInterface;
-use App\Interfaces\UserServiceWebInterface;
+use App\Interfaces\User\UserRepositoryInterface;
+use App\Interfaces\User\UserServiceApiInterface;
+use App\Interfaces\User\UserServiceWebInterface;
 use App\Repositories\UserRepository;
 use App\Services\API\UserServiceApi;
 use App\Services\Web\UserServiceWeb;

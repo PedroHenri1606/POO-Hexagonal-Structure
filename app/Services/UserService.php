@@ -6,7 +6,7 @@ use App\DTOS\User\UserDtoRequestCreate;
 use App\DTOS\User\UserDtoRequestUpdate;
 use App\DTOS\User\UserDtoResponseApi;
 use App\DTOS\User\UserDtoResponseWeb;
-use App\Interfaces\UserRepositoryInterface;
+use App\Interfaces\User\UserRepositoryInterface;
 
 abstract class UserService{
 
@@ -15,6 +15,13 @@ abstract class UserService{
     ){}
 
     abstract public function findById(int $id): UserDtoResponseApi | UserDtoResponseWeb;
+
+    public function findByEmail(string $email): UserDtoResponseApi{
+
+        $user = $this->repository->findByEmail($email);
+
+        return UserDtoResponseApi::fromArray($user->toArray());
+    }
 
     abstract public function findAll(): array;
 

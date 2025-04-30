@@ -5,8 +5,8 @@ namespace App\Services\API;
 use App\DTOS\User\UserDtoRequestCreate;
 use App\DTOS\User\UserDtoRequestUpdate;
 use App\DTOS\User\UserDtoResponseApi;
-use App\Interfaces\UserRepositoryInterface;
-use App\Interfaces\UserServiceApiInterface;
+use App\Interfaces\User\UserRepositoryInterface;
+use App\Interfaces\User\UserServiceApiInterface;
 use App\Services\UserService;
 use App\Utils\Validator;
 
@@ -20,6 +20,13 @@ class UserServiceApi extends UserService implements UserServiceApiInterface {
     public function findById(int $id): UserDtoResponseApi{
 
         $user = $this->repository->findById($id);
+
+        return UserDtoResponseApi::fromArray($user->toArray());
+    }
+
+    public function findByEmail(string $email): UserDtoResponseApi{
+
+        $user = $this->repository->findByEmail($email);
 
         return UserDtoResponseApi::fromArray($user->toArray());
     }

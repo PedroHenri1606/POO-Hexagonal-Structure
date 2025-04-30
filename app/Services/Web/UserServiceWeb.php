@@ -5,8 +5,8 @@ namespace App\Services\Web;
 use App\DTOS\User\UserDtoRequestCreate;
 use App\DTOS\User\UserDtoRequestUpdate;
 use App\DTOS\User\UserDtoResponseWeb;
-use App\Interfaces\UserRepositoryInterface;
-use App\Interfaces\UserServiceWebInterface;
+use App\Interfaces\User\UserRepositoryInterface;
+use App\Interfaces\User\UserServiceWebInterface;
 use App\Services\UserService;
 use App\Utils\Validator;
 
@@ -20,6 +20,13 @@ class UserServiceWeb extends UserService implements UserServiceWebInterface{
     public function findById(int $id): UserDtoResponseWeb{
 
         $user = $this->repository->findById($id);
+
+        return UserDtoResponseWeb::fromArray((array) $user);
+    }
+
+    public function findByEmail(string $email): UserDtoResponseWeb{
+
+        $user = $this->repository->findByEmail($email);
 
         return UserDtoResponseWeb::fromArray((array) $user);
     }

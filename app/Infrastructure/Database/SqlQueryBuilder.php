@@ -2,7 +2,8 @@
 
 namespace App\Infrastructure\Database;
 
-use App\Interfaces\QueryBuilderInterface;
+use App\Interfaces\QueryBuilder\QueryBuilderInterface;
+
 
 
 class SqlQueryBuilder implements QueryBuilderInterface{
@@ -22,10 +23,10 @@ class SqlQueryBuilder implements QueryBuilderInterface{
     public function insert(string $table, array $data): array{
 
         $columns      = array_keys($data);
-        $placeholders = implode(',', $columns);
+        $placeholders = implode(',', array_fill(0, count($columns), '?'));
         $values       = array_values($data);
 
-        $sql = "INSERT INTO {$table} " . implode(',', $columns) . " VALUES ('{$placeholders}')";
+        $sql = "INSERT INTO {$table} (" . implode(',', $columns) . ") VALUES ({$placeholders})";
 
         return [$sql, $values];
     }

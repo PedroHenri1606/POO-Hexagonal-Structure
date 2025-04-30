@@ -15,12 +15,12 @@ class ApiResponse{
         ], $code);
     }
 
-    public function error(string $message = '', int $code = 400): JsonResponse {
+    public function error(mixed $data = null, string $message = '', int $code = 400): JsonResponse {
 
         return response()->json([
             "success" => false,
             "message" => $message,
-            "data"    => null,
+            "data"    => $data,
         ], $code);
     }
 

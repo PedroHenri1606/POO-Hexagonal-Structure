@@ -3,15 +3,40 @@
 namespace App\Repositories;
 
 use App\Exceptions\EntityNotFound;
-use App\Interfaces\QueryBuilderInterface;
-use App\Interfaces\UserRepositoryInterface;
+use App\Interfaces\QueryBuilder\QueryBuilderInterface;
+use App\Interfaces\User\UserRepositoryInterface;
 use App\Models\User;
-use App\Utils\QueryBuilder;
 use DB;
 
 class UserRepository implements UserRepositoryInterface{
 
     public function __construct(private QueryBuilderInterface $queryBuilder){}
+
+    public function selectEquals(string $whereClause, array $whereBindings): array{
+
+        [$sql, $values] = $this->queryBuilder->select('users', ['*'], $whereClause, $whereBindings);
+
+        $result = DB::select($sql, $values);
+
+        if(empty($result)){
+            throw new EntityNotFound('User', 404);
+        }
+
+        return $result;
+    }
+
+    public function findByEmail(string $email): User{
+
+        [$sql, $values] = $this->queryBuilder->select('users', ['*'],  'email = ?', [$email]);
+
+        $result = DB::select($sql, $values);
+
+        if(empty($result)){
+            throw new EntityNotFound('User', 404);
+        }
+
+        return new User((array) $result[0]);
+    }
 
     public function findById(int $id): User{
 

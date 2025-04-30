@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Infrastructure\Database\SqlQueryBuilder;
-use App\Interfaces\QueryBuilderInterface;
+use App\Interfaces\QueryBuilder\QueryBuilderInterface;
 use Illuminate\Support\ServiceProvider;
 
 class InfrastructureProvider extends ServiceProvider

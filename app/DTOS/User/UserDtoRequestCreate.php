@@ -2,6 +2,8 @@
 
 namespace App\DTOS\User;
 
+use Hash;
+
 class UserDtoRequestCreate{
 
     public function __construct(
@@ -14,7 +16,7 @@ class UserDtoRequestCreate{
         return new self(
             $data['name'],
             $data['email'],
-            $data['password']
+            Hash::make($data['password'])
         );
     }
 

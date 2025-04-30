@@ -2,6 +2,8 @@
 
 return [
     App\Providers\AppServiceProvider::class,
-    App\Providers\UserRepositoryProvider::class,
-    App\Providers\UtilsProvider::class,
+    App\Providers\AuthProvider::class,
+    App\Providers\RouteServiceProvider::class,
+    App\Providers\UserProvider::class,
+    App\Providers\InfrastructureProvider::class,
 ];

@@ -6,7 +6,7 @@ use App\DTOS\User\UserDtoRequestCreate;
 use App\DTOS\User\UserDtoRequestUpdate;
 use App\Exceptions\EntityNotFound;
 use App\Exceptions\ValidationException;
-use App\Interfaces\UserServiceApiInterface;
+use App\Interfaces\User\UserServiceApiInterface;
 use App\Utils\ApiResponse;
 use Exception;
 use Illuminate\Http\Request;
@@ -27,9 +27,22 @@ class UserControllerApi{
 
         } catch(EntityNotFound $e){
 
-            return $this->apiResponse->error($e->getMessage(), 404);
+            return $this->apiResponse->error(null,$e->getMessage(), 404);
         }
     }
+
+    public function findByEmail(string $email): JsonResponse{
+
+        try {
+
+            return $this->apiResponse->success($this->service->findByEmail($email));
+
+        } catch(EntityNotFound $e){
+
+            return $this->apiResponse->error(null,$e->getMessage(), 404);
+        }
+    }
+
 
     public function findAll(): JsonResponse{
 
@@ -39,7 +52,7 @@ class UserControllerApi{
 
         } catch(Exception $e){
 
-            return $this->apiResponse->error('Unable to search for users', 500);
+            return $this->apiResponse->error(null,'Unable to search for users', 500);
         }
     }
 
@@ -55,7 +68,7 @@ class UserControllerApi{
 
         } catch(ValidationException $e){
 
-            return $this->apiResponse->error($e->getMessage(), 422);
+            return $this->apiResponse->error($e->getErrors(),$e->getMessage(), 422);
         }
     }
 
@@ -71,7 +84,7 @@ class UserControllerApi{
 
         } catch(ValidationException $e){
 
-            return $this->apiResponse->error($e->getMessage(), 422);
+            return $this->apiResponse->error($e->getErrors(),$e->getMessage(), 422);
         }
     }
 
@@ -85,7 +98,7 @@ class UserControllerApi{
 
         } catch(EntityNotFound $e){
 
-            return $this->apiResponse->error($e->getMessage(), 404);
+            return $this->apiResponse->error(null,$e->getMessage(), 404);
         }
     }
 }
