@@ -15,6 +15,10 @@ return Application::configure(basePath: dirname(__DIR__))
             'auth' => \App\Http\Middleware\Authenticate::class,
             'auth:api' => \App\Http\Middleware\Authenticate::class,
         ]);
+
+        $middleware->group('api', [
+            \App\Http\Middleware\ForceJsonResponse::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
