@@ -12,7 +12,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
-class UserControllerApi{
+class UserApiController{
 
     public function __construct(
         private UserServiceApiInterface $service,

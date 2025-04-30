@@ -4,7 +4,7 @@ namespace App\Interfaces\Auth;
 
 use App\Models\User;
 
-interface AuthInfrastructureInterface{
+interface AuthApiInterface{
 
     public function getToken(): string;
     public function generateToken(User $user): string;

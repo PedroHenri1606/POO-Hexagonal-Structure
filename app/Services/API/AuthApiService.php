@@ -4,15 +4,15 @@ namespace App\Services\API;
 
 use App\DTOS\Auth\AuthDtoRequestLogin;
 use App\Exceptions\AuthFailedException;
-use App\Interfaces\Auth\AuthInfrastructureInterface;
-use App\Interfaces\Auth\AuthServiceInterface;
+use App\Interfaces\Auth\AuthApiInterface;
+use App\Interfaces\Auth\AuthApiServiceInterface;
 use App\Repositories\UserRepository;
 use Hash;
 
-class AuthServiceApi implements AuthServiceInterface{
+class AuthApiService implements AuthApiServiceInterface{
 
     public function __construct(
-        private AuthInfrastructureInterface $auth,
+        private AuthApiInterface $auth,
         private UserRepository $userRepository,
     ){}
 

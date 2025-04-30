@@ -1,45 +1,45 @@
 <?php
 
-namespace App\Services\API;
+namespace App\Services\Web;
 
 use App\DTOS\User\UserDtoRequestCreate;
 use App\DTOS\User\UserDtoRequestUpdate;
-use App\DTOS\User\UserDtoResponseApi;
+use App\DTOS\User\UserDtoResponseWeb;
 use App\Interfaces\User\UserRepositoryInterface;
-use App\Interfaces\User\UserServiceApiInterface;
+use App\Interfaces\User\UserServiceWebInterface;
 use App\Services\UserService;
 use App\Utils\Validator;
 
-class UserServiceApi extends UserService implements UserServiceApiInterface {
+class UserWebService extends UserService implements UserServiceWebInterface{
 
     public function __construct(
         private UserRepositoryInterface $repository,
         private Validator $validator,
     ){}
 
-    public function findById(int $id): UserDtoResponseApi{
+    public function findById(int $id): UserDtoResponseWeb{
 
         $user = $this->repository->findById($id);
 
-        return UserDtoResponseApi::fromArray($user->toArray());
+        return UserDtoResponseWeb::fromArray((array) $user);
     }
 
-    public function findByEmail(string $email): UserDtoResponseApi{
+    public function findByEmail(string $email): UserDtoResponseWeb{
 
         $user = $this->repository->findByEmail($email);
 
-        return UserDtoResponseApi::fromArray($user->toArray());
+        return UserDtoResponseWeb::fromArray((array) $user);
     }
 
     /**
-     * @return UserDtoResponseApi[]
+     * @return UserDtoResponseWeb[]
      */
     public function findAll(): array {
 
         $users = $this->repository->findAll();
 
         return array_map(function($user){
-            return UserDtoResponseApi::fromArray((array) $user);
+            return UserDtoResponseWeb::fromArray((array) $user);
         }, $users);
     }
 

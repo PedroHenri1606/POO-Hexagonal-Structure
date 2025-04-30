@@ -3,9 +3,13 @@
 namespace App\Providers;
 
 use App\Infrastructure\Auth\AuthJwtBuilder;
-use App\Interfaces\Auth\AuthInfrastructureInterface;
-use App\Interfaces\Auth\AuthServiceInterface;
-use App\Services\API\AuthServiceApi;
+use App\Infrastructure\Auth\AuthSessionBuilder;
+use App\Interfaces\Auth\AuthApiInterface;
+use App\Interfaces\Auth\AuthApiServiceInterface;
+use App\Interfaces\Auth\AuthWebServiceInterface;
+use App\Services\API\AuthApiService;
+use App\Services\Web\AuthWebService;
+use AuthWebInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AuthProvider extends ServiceProvider
@@ -15,8 +19,11 @@ class AuthProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(AuthInfrastructureInterface::class, AuthJwtBuilder::class);
-        $this->app->bind(AuthServiceInterface::class       , AuthServiceApi::class);
+        $this->app->bind(AuthApiInterface::class        , AuthJwtBuilder::class);
+        $this->app->bind(AuthApiServiceInterface::class , AuthApiService::class);
+
+        $this->app->bind(AuthWebInterface::class       , AuthSessionBuilder::class);
+        $this->app->bind(AuthWebServiceInterface::class, AuthWebService::class);
     }
 
     /**

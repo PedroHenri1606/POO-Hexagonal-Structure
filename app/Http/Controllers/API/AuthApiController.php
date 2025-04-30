@@ -4,16 +4,16 @@ namespace App\Http\Controllers\API;
 
 use App\DTOS\Auth\AuthDtoRequestLogin;
 use App\Http\Controllers\Controller;
-use App\Interfaces\Auth\AuthServiceInterface;
+use App\Interfaces\Auth\AuthApiServiceInterface;
 use App\Utils\ApiResponse;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class AuthControllerApi extends Controller{
+class AuthApiController extends Controller{
 
     public function __construct(
-        private AuthServiceInterface $service,
+        private AuthApiServiceInterface $service,
         private ApiResponse $apiResponse
     ){}
 

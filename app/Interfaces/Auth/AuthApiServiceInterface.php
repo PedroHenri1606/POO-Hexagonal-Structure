@@ -4,7 +4,7 @@ namespace App\Interfaces\Auth;
 
 use App\DTOS\Auth\AuthDtoRequestLogin;
 
-interface AuthServiceInterface {
+interface AuthApiServiceInterface {
 
     public function getToken(): string ;
     public function getTokenPayload(): array;

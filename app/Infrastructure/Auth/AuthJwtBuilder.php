@@ -3,11 +3,11 @@
 namespace App\Infrastructure\Auth;
 
 use App\Exceptions\TokenNotFound;
-use App\Interfaces\Auth\AuthInfrastructureInterface;
+use App\Interfaces\Auth\AuthApiInterface;
 use App\Models\User;
 use Tymon\JWTAuth\JWTAuth;
 
-class AuthJwtBuilder implements AuthInfrastructureInterface{
+class AuthJwtBuilder implements AuthApiInterface{
 
     public function __construct(
         private JWTAuth $jwt

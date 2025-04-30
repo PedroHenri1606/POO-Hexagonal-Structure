@@ -5,12 +5,12 @@ namespace App\Http\Controllers\WEB;
 use App\DTOS\User\UserDtoRequestCreate;
 use App\DTOS\User\UserDtoRequestUpdate;
 use App\Http\Controllers\Controller;
-use App\Interfaces\UserServiceWebInterface;
+use App\Interfaces\User\UserServiceWebInterface;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Request;
 
-class UserControllerWeb extends Controller{
+class UserWebController extends Controller{
 
     public function __construct(
         private UserServiceWebInterface $service

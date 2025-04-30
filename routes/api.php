@@ -1,34 +1,34 @@
 <?php
 
-use App\Http\Controllers\API\AuthControllerApi;
-use App\Http\Controllers\API\UserControllerApi;
+use App\Http\Controllers\API\AuthApiController;
+use App\Http\Controllers\API\UserApiController;
 
 
 Route::group(['prefix' => '/v1'], function(){
 
-    Route::post('/auth', [AuthControllerApi::class, 'login']);
+    Route::post('/auth', [AuthApiController::class, 'login']);
 
     Route::middleware(['auth:api'])->group(function(){
 
         Route::group(['prefix' => 'auth'], function(){
 
-            Route::get('/'         , [AuthControllerApi::class, 'getTokenPayload']);
-            Route::get('/check'    , [AuthControllerApi::class, 'checkToken']);
+            Route::get('/'         , [AuthApiController::class, 'getTokenPayload']);
+            Route::get('/check'    , [AuthApiController::class, 'checkToken']);
 
-            Route::post('/refresh' , [AuthControllerApi::class, 'refreshToken']);
+            Route::post('/refresh' , [AuthApiController::class, 'refreshToken']);
 
-            Route::delete('/'      , [AuthControllerApi::class, 'logout']);
+            Route::delete('/'      , [AuthApiController::class, 'logout']);
         });
 
         Route::group(['prefix' => 'users'], function(){
 
-            Route::get('/{id}'     , [UserControllerApi::class, 'findById']);
-            Route::get('/'         , [UserControllerApi::class, 'findAll']);
+            Route::get('/{id}'     , [UserApiController::class, 'findById']);
+            Route::get('/'         , [UserApiController::class, 'findAll']);
 
-            Route::post('/'        , [UserControllerApi::class, 'create']);
-            Route::put('/{id}'     , [UserControllerApi::class, 'update']);
+            Route::post('/'        , [UserApiController::class, 'create']);
+            Route::put('/{id}'     , [UserApiController::class, 'update']);
 
-            Route::delete('/{id}'  , [UserControllerApi::class, 'destroy']);
+            Route::delete('/{id}'  , [UserApiController::class, 'destroy']);
         });
     });
 });

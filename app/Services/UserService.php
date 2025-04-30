@@ -16,13 +16,6 @@ abstract class UserService{
 
     abstract public function findById(int $id): UserDtoResponseApi | UserDtoResponseWeb;
 
-    public function findByEmail(string $email): UserDtoResponseApi{
-
-        $user = $this->repository->findByEmail($email);
-
-        return UserDtoResponseApi::fromArray($user->toArray());
-    }
-
     abstract public function findAll(): array;
 
     abstract public function create(UserDtoRequestCreate $userDto): bool ;
