@@ -11,7 +11,7 @@ use App\Interfaces\User\UserRepositoryInterface;
 abstract class UserService{
 
     public function __construct(
-        private UserRepositoryInterface $repository,
+        protected UserRepositoryInterface $repository,
     ){}
 
     abstract public function findById(int $id): UserDtoResponseApi | UserDtoResponseWeb;

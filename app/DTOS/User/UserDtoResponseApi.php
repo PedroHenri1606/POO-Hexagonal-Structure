@@ -5,6 +5,7 @@ namespace App\DTOS\User;
 class UserDtoResponseApi{
 
     public function __construct(
+        public int $id,
         public string $name,
         public string $email,
     ){}
@@ -12,6 +13,7 @@ class UserDtoResponseApi{
     public static function fromArray(array $data): self{
 
         return new self(
+            $data['id'],
             $data['name'],
             $data['email'],
         );

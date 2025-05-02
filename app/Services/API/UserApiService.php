@@ -5,6 +5,7 @@ namespace App\Services\API;
 use App\DTOS\User\UserDtoRequestCreate;
 use App\DTOS\User\UserDtoRequestUpdate;
 use App\DTOS\User\UserDtoResponseApi;
+use App\Exceptions\ValidationException;
 use App\Interfaces\User\UserRepositoryInterface;
 use App\Interfaces\User\UserServiceApiInterface;
 use App\Services\UserService;
@@ -13,8 +14,8 @@ use App\Utils\Validator;
 class UserApiService extends UserService implements UserServiceApiInterface {
 
     public function __construct(
-        private UserRepositoryInterface $repository,
-        private Validator $validator,
+        protected UserRepositoryInterface $repository,
+        protected Validator $validator,
     ){}
 
     public function findById(int $id): UserDtoResponseApi{
@@ -38,9 +39,7 @@ class UserApiService extends UserService implements UserServiceApiInterface {
 
         $users = $this->repository->findAll();
 
-        return array_map(function($user){
-            return UserDtoResponseApi::fromArray((array) $user);
-        }, $users);
+        return array_map(fn($user)=> UserDtoResponseApi::fromArray((array) $user),$users);
     }
 
     public function create(UserDtoRequestCreate $userDto): bool {
@@ -52,7 +51,11 @@ class UserApiService extends UserService implements UserServiceApiInterface {
 
     public function update(int $id, UserDtoRequestUpdate $userDto): bool{
 
-        $this->findById($id);
+        $user = $this->findById($id);
+
+        if($user->id != $userDto->id){
+            throw new ValidationException(['error' => 'Invalid Operation']);
+        }
 
         $this->validator->validate( (array) $userDto, $userDto->rules());
 

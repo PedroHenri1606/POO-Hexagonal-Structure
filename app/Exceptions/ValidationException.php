@@ -9,7 +9,7 @@ class ValidationException extends Exception
     protected array $errors = [];
 
 
-    public function __construct(array $errors, $code = 422, Exception $previous = null){
+    public function __construct(array $errors, $code = 422, ?Exception $previous = null){
 
         $this->errors = $errors;
 
